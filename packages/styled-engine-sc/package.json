@@ -1,0 +1,28 @@
+{
+  "name": "@bean-ui/styled-engine-sc",
+  "packageManager": "yarn@3.2.1",
+  "scripts": {
+    "compile": "run-p \"compile:*\"",
+    "compile:esm": "tsc -p ."
+  },
+  "dependencies": {
+    "typescript": "^4.7.4",
+    "yarn-run-all": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.6",
+    "@types/react": "^17.0.0 || ^18.0.0",
+    "@types/styled-components": "^5.1.25",
+    "react": "^17.0.0 || ^18.0.0",
+    "styled-components": "^5.3.5"
+  },
+  "peerDependenciesMeta": {
+    "@types/styled-components": {
+      "optional": true
+    },
+    "styled-components": {
+      "optional": true
+    }
+  },
+  "sideEffects": false
+}
