@@ -1,0 +1,13 @@
+{
+  "name": "@bean-ui/common",
+  "version": "0.0.0",
+  "packageManager": "yarn@3.2.1",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "run-p \"compile:*\"",
+    "compile:esm": "tsc -p ."
+  },
+  "dependencies": {
+    "yarn-run-all": "^3.1.1"
+  }
+}
