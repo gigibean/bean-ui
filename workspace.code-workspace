@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": "./packages/common"
+    },
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./docs"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "../../.yarn/sdks/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true
+  }
+}
