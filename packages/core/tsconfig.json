@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "declaration": true,
+    "declarationDir": "dist",
+    "module": "esNext",
+    "jsx": "react",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "allowUmdGlobalAccess": true
+  },
+  "include": ["src/**/*"]
+}
