@@ -1,41 +1,45 @@
 import React from 'react';
-import { StyleButtonProps, Button } from '@bean-ui/core';
-import { colors } from '@bean-ui/common';
-
+import { Button, BaseButtonProps } from '@bean-ui/core';
 export default {
   title: 'Core/Button',
   component: Button,
   argTypes: {
     theme: {
       control: 'select',
-      options: ['purple', 'white', 'lightGray', 'borderGray', 'noBorderGray', 'noBoderPurple'],
+      options: ['light', 'dark'],
     },
-    borderRadius: { control: 'select', options: ['small', 'large'] },
-    size: { control: 'select', options: ['xxxs', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl'] },
+    size: { control: 'select', options: ['small', 'medium', 'large'] },
     stretch: { control: 'select', options: [true, false] },
-    loadingColor: { control: 'color' },
-    loadingType: {
+    variant: { control: 'select', options: ['contained', 'text', 'outlined'] },
+    color: {
       control: 'select',
       options: [
-        'blank',
-        'balls',
-        'bars',
-        'bubbles',
-        'cubes',
-        'cylon',
-        'spin',
-        'spinningBubbles',
-        'spokes',
+        'red',
+        'pink',
+        'purple',
+        'deepPurple',
+        'indigo',
+        'blue',
+        'lightBlue',
+        'green',
+        'lightGreen',
+        'lime',
+        'yellow',
+        'amber',
+        'orange',
+        'deepOrange',
+        'brown',
+        'gray',
       ],
     },
-    loadingSize: { control: 'text' },
+    // loadingSize: { control: 'text' },
     children: { control: 'text' },
     isLoading: { control: 'select', options: [true, false] },
     disabled: { control: 'select', options: [true, false] },
   },
 };
 
-const Template = (args: StyleButtonProps) => {
+const Template = (args: BaseButtonProps) => {
   return <Button {...args} />;
 };
 
@@ -44,36 +48,36 @@ export const Loading = Template.bind({});
 export const Disabled = Template.bind({});
 
 Default.args = {
-  theme: 'purple',
-  borderRadius: 'small',
-  size: 'm',
+  theme: 'light',
+  size: 'medium',
   stretch: false,
-  loadingColor: colors.purple[100],
-  loadingType: 'spin',
-  loadingSize: '30px',
-  children: '버튼클릭',
+  variant: 'contained',
+  color: 'purple',
+  children: 'button',
+  isLoading: false,
+  disabled: false,
 };
 
-Loading.args = {
-  theme: 'purple',
-  borderRadius: 'small',
-  size: 'm',
-  stretch: false,
-  loadingColor: colors.purple[100],
-  loadingType: 'spin',
-  loadingSize: '30px',
-  children: 'hi',
-  isLoading: true,
-};
+// Loading.args = {
+//   theme: 'purple',
+//   borderRadius: 'small',
+//   size: 'm',
+//   stretch: false,
+//   loadingColor: colors.purple[100],
+//   loadingType: 'spin',
+//   loadingSize: '30px',
+//   children: 'hi',
+//   isLoading: true,
+// };
 
-Disabled.args = {
-  theme: 'lightGray',
-  borderRadius: 'small',
-  size: 'm',
-  stretch: false,
-  loadingColor: colors.purple[100],
-  loadingType: 'spin',
-  loadingSize: '30px',
-  children: '버튼클릭안됨',
-  disabled: true,
-};
+// Disabled.args = {
+//   theme: 'lightGray',
+//   borderRadius: 'small',
+//   size: 'm',
+//   stretch: false,
+//   loadingColor: colors.purple[100],
+//   loadingType: 'spin',
+//   loadingSize: '30px',
+//   children: '버튼클릭안됨',
+//   disabled: true,
+// };
