@@ -1,38 +1,126 @@
-import { ThemeTypeProps } from 'index';
-import { darken, lighten } from 'polished';
-import { darkPallete, lightPallete } from './pallete';
+import { colors, textColors } from '@bean-ui/common';
+import { darken, lighten, transparentize } from 'polished';
+import { darkPalette, lightPalette } from './palette';
+import { ColorType, ThemeTypeProps } from 'src/index';
 
 interface ColorProps {
   color: string;
   theme: ThemeTypeProps;
+  scale?: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   tonalOffset?: number;
 }
 
-const createColors = ({ color, theme, tonalOffset }: ColorProps): object => {
-  const pallete = theme === 'dark' ? darkPallete : lightPallete;
+export const colorPaltte = [
+  'red',
+  'pink',
+  'purple',
+  'deepPurple',
+  'indigo',
+  'blue',
+  'lightBlue',
+  'green',
+  'lightGreen',
+  'lime',
+  'yellow',
+  'amber',
+  'orange',
+  'deepOrange',
+  'brown',
+  'gray',
+];
+
+export type ColorSetProps = {
+  main: string;
+  text: string;
+  textPalette: textPaletteProps;
+  textAction: TextActionProps;
+  paper: string;
+  divider: string;
+  hover: string;
+  active: string;
+  hoverT: string;
+  activeT: string;
+  hoverTrans: string;
+  activeTrans: string;
+};
+
+type textPaletteProps = {
+  primary: string;
+  secondary: string;
+  disabled: string;
+};
+
+type TextActionProps = {
+  active: string;
+  hover: string;
+  selected: string;
+};
+
+const createColors = ({ color, theme, scale, tonalOffset }: ColorProps): ColorSetProps => {
+  const palette = theme === 'dark' ? darkPalette : lightPalette;
+
+  let initColor = '';
+  let initText = '';
+  if (colorPaltte.includes(color)) {
+    initColor = colors[color as ColorType][scale ?? 500];
+    initText = textColors[color as ColorType][scale ?? 500];
+  } else {
+    initColor = color;
+    initText = palette.text.primary;
+  }
+
   const colorSet = {
-    main: color,
-    text: pallete.text,
-    action: pallete.action,
-    paper: pallete.background.dufault,
-    divider: pallete.divider,
+    main: initColor,
+    text: initText,
+    textPalette: palette.text,
+    textAction: palette.action,
+    paper: palette.background.dufault,
+    divider: palette.divider,
     hover: '',
     active: '',
+    hoverT: '',
+    activeT: '',
+    hoverTrans: '',
+    activeTrans: '',
   };
-  if (theme === 'dark') colorSet.main = getLighten(color);
-  colorSet.hover = getActColor({ color, theme, tonalOffset: tonalOffset ? tonalOffset : 0.2 });
-  colorSet.active = getActColor({
-    color,
+
+  if (theme === 'dark') {
+    colorSet.main = getLighten(initColor);
+    colorSet.text = getLighten(initText);
+  }
+
+  colorSet.hover = getActColor({
+    color: initColor,
     theme,
-    tonalOffset: tonalOffset ? tonalOffset * 2.5 : 0.5,
+    tonalOffset: tonalOffset ? tonalOffset : 0.1,
   });
+  colorSet.active = getActColor({
+    color: initColor,
+    theme,
+    tonalOffset: tonalOffset ? tonalOffset * 2 : 0.2,
+  });
+  colorSet.hoverT = getActColor({
+    color: initText,
+    theme,
+    tonalOffset: tonalOffset ? tonalOffset : 0.1,
+  });
+  colorSet.activeT = getActColor({
+    color: initText,
+    theme,
+    tonalOffset: tonalOffset ? tonalOffset * 2 : 0.2,
+  });
+  colorSet.hoverTrans = getOpacify(initColor, 0.6);
+  colorSet.activeTrans = getOpacify(initColor, 0.4);
   return colorSet;
 };
 
-const getLighten = (color: string, tonalOffset = 0.3): string => {
+const getLighten = (color: string, tonalOffset = 0.1): string => {
   return lighten(tonalOffset, color);
 };
-const getActColor = ({ color, theme, tonalOffset = 0.2 }: ColorProps) => {
+const getOpacify = (color: string, tonalOffset = 0.1): string => {
+  return transparentize(tonalOffset, color);
+};
+const getActColor = ({ color, theme, tonalOffset = 0.1 }: ColorProps) => {
   const tonalOffsetLight = tonalOffset;
   const tonalOffsetDark = tonalOffset * 1.5;
   if (theme === 'light') {

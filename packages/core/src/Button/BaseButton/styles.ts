@@ -1,23 +1,17 @@
 import styled, { css } from '@bean-ui/styled-engine';
-import { darken } from 'polished';
-import { ButtonSize } from './Button';
+import { darken, lighten } from 'polished';
+import { ColorSetProps } from 'src/utils/getColor';
+import type { SizeType, VariantType } from 'src/index';
 
 type BaseButtonStyleProps = {
-  fontColor?: string;
-  bkgColor?: string;
-  hoverBkgColor?: string;
-  padding?: string;
-  width?: string;
-  height?: string;
-  borderRadius?: string;
-  fontStyle?: string;
-  border?: string;
-  hoverFontColor?: string;
+  size: SizeType;
   stretch?: boolean;
   disabled?: boolean;
+  colorSet: ColorSetProps;
+  variant: VariantType;
 };
 
-const buttonStyleBySize = (key: ButtonSize) => {
+const buttonStyleBySize = (key: SizeType) => {
   switch (key) {
     case 'small':
       return css`
@@ -46,34 +40,106 @@ const buttonStyleBySize = (key: ButtonSize) => {
   }
 };
 
+const buttonStyleByVriant = (variant: VariantType, colorSet: ColorSetProps) => {
+  switch (variant) {
+    case 'contained':
+      return containedButtonStyleByColorSet(colorSet);
+    case 'text':
+      return textButtonStyleByColorSet(colorSet);
+    case 'outlined':
+      return outlineddButtonStyleByColorSet(colorSet);
+  }
+};
+
+const containedButtonStyleByColorSet = (colorSet: ColorSetProps) => {
+  return css`
+    background: ${colorSet.main};
+    color: ${colorSet.text};
+    border: none;
+
+    &:hover {
+      background: ${colorSet.hover};
+      color: ${colorSet.hoverT};
+      border: none;
+    }
+
+    &:active {
+      background: ${colorSet.active};
+      color: ${colorSet.activeT};
+      border: none;
+    }
+
+    &:disabled {
+      background: ${lighten(0.4, colorSet.textPalette.disabled)};
+      color: ${colorSet.textPalette.disabled};
+      border: none;
+    }
+  `;
+};
+
+const textButtonStyleByColorSet = (colorSet: ColorSetProps) => {
+  return css`
+    background: transparent;
+    color: ${colorSet.main};
+    border: none;
+
+    &:hover {
+      background: ${colorSet.hoverTrans};
+      color: ${colorSet.main};
+      border: none;
+    }
+
+    &:active {
+      background: ${colorSet.activeTrans};
+      color: ${colorSet.main};
+      border: none;
+    }
+
+    &:disabled {
+      background: transparent;
+      color: ${colorSet.textPalette.disabled};
+      border: none;
+    }
+  `;
+};
+
+const outlineddButtonStyleByColorSet = (colorSet: ColorSetProps) => {
+  return css`
+    background: transparent;
+    color: ${colorSet.main};
+    border: 1px solid ${colorSet.hoverTrans};
+
+    &:hover {
+      background: ${colorSet.hoverTrans};
+      color: ${colorSet.main};
+      border: 1px solid ${colorSet.main};
+    }
+
+    &:active {
+      background: ${colorSet.activeTrans};
+      color: ${colorSet.main};
+      border: 1px solid ${colorSet.main};
+    }
+    &:disabled {
+      background: transparent;
+      border: 1px solid ${lighten(0.5, colorSet.textPalette.disabled)};
+      color: ${colorSet.textPalette.disabled};
+    }
+  `;
+};
+
 export const ButtonStyle = styled.button<BaseButtonStyleProps>`
-  color: ${({ fontColor }) => fontColor};
-  /* background-color: ${({ bkgColor }) => bkgColor}; */
-  width: ${({ width, stretch }) =>
-    stretch ? '-webkit-fill-available' : width ? `${width}` : `auto`};
-  height: ${({ height }) => (height ? `${height}` : `auto`)};
-  border-radius: ${({ borderRadius }) => `${borderRadius}`};
-  padding: ${({ padding }) => padding};
-  ${({ fontStyle }) => fontStyle}
-  border: ${({ border }) => border};
+  ${({ size }) => buttonStyleBySize(size)}
+  ${({ variant, colorSet }) => buttonStyleByVriant(variant, colorSet)};
+  width: ${({ stretch }) => (stretch ? '-webkit-fill-available' : `auto`)};
+  border-radius: 4px;
+  min-width: 64px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: 0px;
+  vertical-align: middle;
+  text-decoration: none;
   transition: all 0.1s ease-out;
-  color: ${({ fontColor }) => fontColor};
-
-  &:hover {
-    color: ${({ hoverFontColor }) => hoverFontColor};
-    background-color: ${({ hoverBkgColor, bkgColor, disabled }) =>
-      hoverBkgColor === '' && bkgColor !== '' && !disabled
-        ? `${darken(0.1, bkgColor || '#000')}`
-        : hoverBkgColor};
-  }
-  & > * {
-    color: ${({ fontColor }) => fontColor};
-  }
-`;
-
-export const ButtonWrapper = styled.div`
-  & > * {
-    display: inherit;
-  }
 `;
