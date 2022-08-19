@@ -1,8 +1,8 @@
-export const lightPallete = {
+export const lightPalette = {
   text: {
     primary: 'rgba(0, 0, 0, 0.87)',
     secondary: 'rgba(0, 0, 0, 0.6)',
-    disalbed: 'rgba(0, 0, 0, 0.38)',
+    disabled: 'rgba(0, 0, 0, 0.38)',
   },
   action: {
     active: 'rgba(0, 0, 0, 0.54)',
@@ -15,11 +15,11 @@ export const lightPallete = {
   divider: 'rgba(0, 0, 0, 0.12)',
 };
 
-export const darkPallete = {
+export const darkPalette = {
   text: {
     primary: '#fff',
     secondary: 'rgba(255, 255, 255, 0.7)',
-    disalbed: 'rgba(255, 255, 255, 0.5)',
+    disabled: 'rgba(255, 255, 255, 0.5)',
   },
   action: {
     active: '#fff',

@@ -4,43 +4,28 @@ import React, {
   forwardRef,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
-import { Loader, LoadingType } from '../../Loader';
-import { colors, textColors } from '@bean-ui/common';
-import { ButtonStyle, ButtonWrapper } from './styles';
-import { ThemeTypeProps } from 'index';
-/*
-children node
-className string
-anchorAttr
-buttonAttr
-color “default”/“inherit” | “orange” | “orangeLight” | “red” | “redLight” | “white” | “blue” | “blueLight” | undefined
-| ‘primary’
-| ‘secondary’
-| ‘success’
-| ‘error’
-| ‘info’
-| ‘warning’
-| string
+import { ButtonStyle } from './styles';
+import createColors from 'src/utils/getColor';
+import type { ColorType, Omit, SizeType, ThemeTypeProps, VariantType } from 'src/index';
 
-variant ’contained’  | ‘outlined’ | ‘text’ | string
-
-size “small” | “medium” | “large” | string medium
-
-disabled
-
-fullwhidth
-
-href
-*/
 interface CommonButtonProps {
   children?: React.ReactNode;
+  /**
+   * @example theme
+   * 'light, 'dark'
+   */
   theme?: ThemeTypeProps;
   className?: string;
-  color: any;
-  variant: any;
-  size: any;
+  /**
+   * @exmaple color
+   * 'red', 'pink', 'purple', 'deepPurple', 'indigo', 'blue', 'lightBlue', 'green', 'lightGreen', 'lime', 'yellow', 'amber', 'orange', 'deepOrange', 'brown', 'gray', rgb or hex
+   */
+  color: ColorType | string;
+  variant: VariantType;
+  size?: SizeType;
   disabled?: boolean;
   stretch?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -50,47 +35,75 @@ interface CommonButtonProps {
   RightIcon?: React.ReactNode;
 }
 
-export type ButtonSize = 'small' | 'medium' | 'large';
+type OmittedAnchorAttributes = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, CommonButtonProps>;
 
-type OmittedAnchorAttributes = Omit<
-  AnchorHTMLAttributes<HTMLAnchorElement>,
-  keyof CommonButtonProps
->;
-
-type OmittedButtonAttributes = Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  keyof CommonButtonProps
->;
+type OmittedButtonAttributes = Omit<ButtonHTMLAttributes<HTMLButtonElement>, CommonButtonProps>;
 
 export interface BaseButtonProps extends CommonButtonProps {
   anchorAttributes?: OmittedAnchorAttributes;
   buttonAttributes?: OmittedButtonAttributes;
 }
 
-const BaseButton = forwardRef<HTMLButtonElement, BaseButtonProps>((props, ref) => {
-  const [as, setAs] = useState<React.ElementType<any> | undefined>('button');
-  let isLoading: boolean | undefined,
-    onClick: React.MouseEventHandler<HTMLButtonElement> | undefined,
-    to: string | undefined;
-  ({ isLoading, onClick, to } = props);
-
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>): void => {
-      if (isLoading) {
-        return;
-      }
-      onClick && onClick(e);
+const Button = forwardRef<any, BaseButtonProps>(
+  (
+    {
+      children,
+      theme = 'light',
+      className,
+      color = 'purple',
+      variant = 'contained',
+      size = 'medium',
+      disabled = false,
+      stretch = false,
+      onClick,
+      isLoading,
+      to,
+      LeftIcon,
+      RightIcon,
+      ...rest
     },
-    [isLoading, onClick],
-  );
+    ref,
+  ) => {
+    const [as, setAs] = useState<React.ElementType<any> | undefined>('button');
 
-  // change tag name
-  useEffect(() => {
-    if (to) setAs('a');
-    else setAs('button');
-  }, [to, setAs]);
+    const handleClick = useCallback(
+      (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>): void => {
+        if (isLoading) {
+          return;
+        }
+        onClick && onClick(e);
+      },
+      [isLoading, onClick],
+    );
 
-  return <ButtonStyle {...props} as={as} onClick={handleClick} ref={ref} />;
-});
+    // create Color set
+    const colorSet = useMemo(() => {
+      return createColors({ color, theme });
+    }, [color, theme]);
 
-export default BaseButton;
+    // change tag name
+    useEffect(() => {
+      if (to) setAs('a');
+      else setAs('button');
+    }, [to, setAs]);
+
+    return (
+      <ButtonStyle
+        className={className}
+        size={size}
+        disabled={disabled}
+        stretch={stretch}
+        as={as}
+        onClick={handleClick}
+        ref={ref}
+        colorSet={colorSet}
+        variant={variant}
+        {...rest}
+      >
+        {children}
+      </ButtonStyle>
+    );
+  },
+);
+
+export default Button;

@@ -1,9 +1,7 @@
 import styled from '@bean-ui/styled-engine';
 import { LoadingProps } from './Loader';
 
-export const LoaderContent = styled.div<Pick<LoadingProps, 'margin' | 'padding'>>`
-  ${({ margin }) => `margin: ${margin || '0 auto'};`}
-  ${({ padding }) => `padding: ${padding || '0'};`}
+export const LoaderContent = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

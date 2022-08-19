@@ -1,23 +1,36 @@
 import { babel } from '@rollup/plugin-babel';
-import typescript from '@rollup/plugin-typescript';
-import url from '@rollup/plugin-url';
+import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import visualizer from 'rollup-plugin-visualizer';
-import image from '@rollup/plugin-image';
 import svgr from '@svgr/rollup';
 import json from '@rollup/plugin-json';
+import alias from '@rollup/plugin-alias';
+// import dts from 'rollup-plugin-dts';
+import path from 'path';
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
-// const dependencies = ['react'];
+const dependencies = ['polished', '@bean-ui/common', '@bean-ui/styled-engine'];
 
 const getPlugins = (format) => [
   peerDepsExternal(),
-  // url(),
+  alias({
+    entries: [{ find: 'src', replacement: path.resolve(__dirname, 'src') }],
+  }),
+  typescript({
+    clean: true,
+    typescript: require('ttypescript'),
+    tsconfigDefaults: {
+      compilerOptions: {
+        plugins: [
+          { transform: 'typescript-transform-paths' },
+          { transform: 'typescript-transform-paths', afterDeclarations: true },
+        ],
+      },
+    },
+  }),
   svgr(),
-  // image(),
-  typescript(),
   json(),
   nodeResolve({
     extensions,
@@ -26,6 +39,7 @@ const getPlugins = (format) => [
   babel({
     babelHelpers: 'bundled',
     extensions,
+    comments: false,
   }),
   process.env.RUNNING_ENV === 'analyze' && format === 'cjs'
     ? visualizer({
@@ -47,7 +61,7 @@ export default [
       sourcemap: true,
       preserveModulesRoot: 'src',
     },
-    // external: dependencies,
+    external: dependencies,
     plugins: getPlugins('esm'),
     preserveModules: true,
   },

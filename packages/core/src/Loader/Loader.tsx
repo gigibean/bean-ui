@@ -2,7 +2,6 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { LoaderContent } from './style';
 import * as svgs from './svg';
 import { colors } from '@bean-ui/common';
-import '@bean-ui/styled-engine.macro';
 
 export type LoadingType = 'blank' | 'bubbles' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes';
 

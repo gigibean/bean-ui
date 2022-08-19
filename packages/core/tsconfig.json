@@ -2,13 +2,25 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "esnext",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
     "declaration": true,
-    "declarationDir": "dist",
-    "module": "esNext",
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
     "jsx": "react",
-    "baseUrl": "src",
+    "rootDir": "./src",
+    "baseUrl": ".",
     "outDir": "dist",
-    "allowUmdGlobalAccess": true
+    "allowUmdGlobalAccess": true,
+    "isolatedModules": true,
+    "paths": {
+      "src/*": ["src/*"]
+    }
   },
-  "include": ["src/**/*"]
+  "include": ["./src/**/*.ts*"]
 }
