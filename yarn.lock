@@ -1828,13 +1828,14 @@ __metadata:
     "@babel/preset-react": ^7.13.13
     "@bean-ui/common": "workspace:^"
     "@bean-ui/styled-engine": "workspace:^"
+    "@emotion/babel-plugin": ^11.10.0
     "@emotion/react": ^11.4.0
+    "@rollup/plugin-alias": ^3.1.9
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^19.0.0
     "@rollup/plugin-image": ^2.1.1
     "@rollup/plugin-json": ^4.1.0
     "@rollup/plugin-node-resolve": ^13.3.0
-    "@rollup/plugin-typescript": ^8.2.1
     "@rollup/plugin-url": ^6.0.0
     "@svgr/rollup": ^6.2.1
     "@types/react": ^17.0.8
@@ -1842,6 +1843,7 @@ __metadata:
     "@types/styled-components": ^5.1.25
     "@typescript-eslint/eslint-plugin": ^4.26.0
     "@typescript-eslint/parser": ^4.26.0
+    babel-plugin-module-resolver: ^4.1.0
     babel-plugin-styled-components: ^2.0.7
     cross-env: ^7.0.3
     eslint: ^7.27.0
@@ -1857,10 +1859,13 @@ __metadata:
     react-is: ^18.2.0
     rollup: 2.50.5
     rollup-plugin-peer-deps-external: ^2.2.4
+    rollup-plugin-typescript2: ^0.32.1
     rollup-plugin-visualizer: ^5.5.0
     styled-components: ^5.3.5
     tslib: ^2.2.0
-    typescript: 4.3.2
+    ttypescript: ^1.5.13
+    typescript: ^4.7.4
+    typescript-transform-paths: ^3.3.1
   peerDependencies:
     "@bean-ui/styled-engine": "workspace:^"
     react: ^17.0.0 || ^18.0.0
@@ -2766,6 +2771,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-alias@npm:^3.1.9":
+  version: 3.1.9
+  resolution: "@rollup/plugin-alias@npm:3.1.9"
+  dependencies:
+    slash: ^3.0.0
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0
+  checksum: cefae9dfb7c30f0dc78d24f4ad9ccb8a0878397b313c0fa9d0f519667394941c58a930d968d841e25aee43b0fb892d1e3f7edbb55e8197f191cce7da6a50b882
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-babel@npm:^5.3.0":
   version: 5.3.1
   resolution: "@rollup/plugin-babel@npm:5.3.1"
@@ -2839,23 +2855,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-typescript@npm:^8.2.1":
-  version: 8.3.3
-  resolution: "@rollup/plugin-typescript@npm:8.3.3"
-  dependencies:
-    "@rollup/pluginutils": ^3.1.0
-    resolve: ^1.17.0
-  peerDependencies:
-    rollup: ^2.14.0
-    tslib: "*"
-    typescript: ">=3.7.0"
-  peerDependenciesMeta:
-    tslib:
-      optional: true
-  checksum: c255f8bc3b4d94b81a96d7bf5ba426e4e0a9dc68b96be48d97c6646c1c7dcd08319d08805d93306adfa57f87b080ff4a05198e581592ecf6aba06b752006b5f5
-  languageName: node
-  linkType: hard
-
 "@rollup/plugin-url@npm:^6.0.0":
   version: 6.1.0
   resolution: "@rollup/plugin-url@npm:6.1.0"
@@ -2879,6 +2878,16 @@ __metadata:
   peerDependencies:
     rollup: ^1.20.0||^2.0.0
   checksum: 8be16e27863c219edbb25a4e6ec2fe0e1e451d9e917b6a43cf2ae5bc025a6b8faaa40f82a6e53b66d0de37b58ff472c6c3d57a83037ae635041f8df959d6d9aa
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^4.1.2":
+  version: 4.2.1
+  resolution: "@rollup/pluginutils@npm:4.2.1"
+  dependencies:
+    estree-walker: ^2.0.1
+    picomatch: ^2.2.2
+  checksum: 6bc41f22b1a0f1efec3043899e4d3b6b1497b3dea4d94292d8f83b4cf07a1073ecbaedd562a22d11913ff7659f459677b01b09e9598a98936e746780ecc93a12
   languageName: node
   linkType: hard
 
@@ -6747,6 +6756,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-plugin-module-resolver@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "babel-plugin-module-resolver@npm:4.1.0"
+  dependencies:
+    find-babel-config: ^1.2.0
+    glob: ^7.1.6
+    pkg-up: ^3.1.0
+    reselect: ^4.0.0
+    resolve: ^1.13.1
+  checksum: 3907fba21ca3c66a081e01fbd16bb09c84781749db16aa57805becc376bb5ee8dc373d4b209613e1453d30ea6c836d13073e9e7b6d239ff1806dd1763a9ab18f
+  languageName: node
+  linkType: hard
+
 "babel-plugin-named-exports-order@npm:^0.0.2":
   version: 0.0.2
   resolution: "babel-plugin-named-exports-order@npm:0.0.2"
@@ -9950,6 +9972,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"find-babel-config@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "find-babel-config@npm:1.2.0"
+  dependencies:
+    json5: ^0.5.1
+    path-exists: ^3.0.0
+  checksum: 0a1785d3da9f38637885d9d65f183aaa072f51a834f733035e9694e4d0f6983ae8c8e75cd4e08b92af6f595b3b490ee813a1c5a9b14740685aa836fa1e878583
+  languageName: node
+  linkType: hard
+
 "find-cache-dir@npm:^2.0.0, find-cache-dir@npm:^2.1.0":
   version: 2.1.0
   resolution: "find-cache-dir@npm:2.1.0"
@@ -9961,7 +9993,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^3.3.1":
+"find-cache-dir@npm:^3.3.1, find-cache-dir@npm:^3.3.2":
   version: 3.3.2
   resolution: "find-cache-dir@npm:3.3.2"
   dependencies:
@@ -10175,7 +10207,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.1.0":
+"fs-extra@npm:^10.0.0, fs-extra@npm:^10.1.0":
   version: 10.1.0
   resolution: "fs-extra@npm:10.1.0"
   dependencies:
@@ -12121,6 +12153,15 @@ __metadata:
   version: 1.0.1
   resolution: "json-stable-stringify-without-jsonify@npm:1.0.1"
   checksum: cff44156ddce9c67c44386ad5cddf91925fe06b1d217f2da9c4910d01f358c6e3989c4d5a02683c7a5667f9727ff05831f7aa8ae66c8ff691c556f0884d49215
+  languageName: node
+  linkType: hard
+
+"json5@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "json5@npm:0.5.1"
+  bin:
+    json5: lib/cli.js
+  checksum: 9b85bf06955b23eaa4b7328aa8892e3887e81ca731dd27af04a5f5f1458fbc5e1de57a24442e3272f8a888dd1abe1cb68eb693324035f6b3aeba4fcab7667d62
   languageName: node
   linkType: hard
 
@@ -14118,7 +14159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg-up@npm:3.1.0":
+"pkg-up@npm:3.1.0, pkg-up@npm:^3.1.0":
   version: 3.1.0
   resolution: "pkg-up@npm:3.1.0"
   dependencies:
@@ -15366,6 +15407,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reselect@npm:^4.0.0":
+  version: 4.1.6
+  resolution: "reselect@npm:4.1.6"
+  checksum: 3ea1058422904063ec93c8f4693fe33dcb2178bbf417ace8db5b2c797a5875cf357d9308d11ed3942ee22507dd34ecfbf1f3a21340a4f31c206cab1d36ceef31
+  languageName: node
+  linkType: hard
+
 "resolve-from@npm:^4.0.0":
   version: 4.0.0
   resolution: "resolve-from@npm:4.0.0"
@@ -15387,7 +15435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.14.2, resolve@npm:^1.17.0, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.0, resolve@npm:^1.3.2":
+"resolve@npm:>=1.9.0, resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.13.1, resolve@npm:^1.14.2, resolve@npm:^1.17.0, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.0, resolve@npm:^1.3.2":
   version: 1.22.1
   resolution: "resolve@npm:1.22.1"
   dependencies:
@@ -15413,7 +15461,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
+"resolve@patch:resolve@>=1.9.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
   version: 1.22.1
   resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
@@ -15498,6 +15546,22 @@ __metadata:
   peerDependencies:
     rollup: "*"
   checksum: 597bc7631f4e3cfc066a7da4e09e507258aba932008148328c1a4b48e7ffa755592ef4bcf0165320bbd5019afbdd326f569cd0c68406d820da9ab52e971c009b
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-typescript2@npm:^0.32.1":
+  version: 0.32.1
+  resolution: "rollup-plugin-typescript2@npm:0.32.1"
+  dependencies:
+    "@rollup/pluginutils": ^4.1.2
+    find-cache-dir: ^3.3.2
+    fs-extra: ^10.0.0
+    resolve: ^1.20.0
+    tslib: ^2.4.0
+  peerDependencies:
+    rollup: ">=1.26.3"
+    typescript: ">=2.4.0"
+  checksum: f41ab63ad1e4d21ec99fbf4a367abdf29ef95c41fd0a5612f2b60a8619f5fe633f75982bfbaf8fe9632bddfb6730ff9cb38be77d82561088168fcaccd2cd1e85
   languageName: node
   linkType: hard
 
@@ -16993,6 +17057,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ttypescript@npm:^1.5.13":
+  version: 1.5.13
+  resolution: "ttypescript@npm:1.5.13"
+  dependencies:
+    resolve: ">=1.9.0"
+  peerDependencies:
+    ts-node: ">=8.0.2"
+    typescript: ">=3.2.2"
+  bin:
+    ttsc: bin/tsc
+    ttsserver: bin/tsserver
+  checksum: bd97f058520ebd6183446b2100bfc714c400455e2195c3711d00c3407521d99098a4a204f16200c14a115cd78a5005d4a790bf7fb73a1b21a513573291a9c1d0
+  languageName: node
+  linkType: hard
+
 "type-check@npm:^0.4.0, type-check@npm:~0.4.0":
   version: 0.4.0
   resolution: "type-check@npm:0.4.0"
@@ -17058,13 +17137,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.3.2":
-  version: 4.3.2
-  resolution: "typescript@npm:4.3.2"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: c2a86fa03ce03b255adc13ccd70a55173ca6539ae12114feca59f34a4e9bb69f14fb7cd5adc6c2416e568cff05c870b89d1366768ec55fce04fbdffb429a1cee
+"typescript-transform-paths@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "typescript-transform-paths@npm:3.3.1"
+  dependencies:
+    minimatch: ^3.0.4
+  peerDependencies:
+    typescript: ">=3.6.5"
+  checksum: aa4d36c2767ae3c8801b03ecfc8cb2a1ca164f82b4abb34f14b20d5184fc62310d02ed34298d68934ba976e281cd7e6ba26ff7e89467e1dca2f561b3e88b306d
   languageName: node
   linkType: hard
 
@@ -17075,16 +17155,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@4.3.2#~builtin<compat/typescript>":
-  version: 4.3.2
-  resolution: "typescript@patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=7ad353"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 67da730521568e0de52b13926ad714288a1a6f265b3563c0e646731e6676454bad78bea9e29eafeeb922987e09df9c52d22fabbcddd225dc88783d3610df5209
   languageName: node
   linkType: hard
 

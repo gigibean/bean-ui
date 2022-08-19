@@ -11,3 +11,4 @@ dist
 .*cache
 .gitattributes
 storybook-static
+node_modules
