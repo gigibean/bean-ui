@@ -10,15 +10,5 @@
     "noEmit": true,
     "baseUrl": "."
   },
-  "paths": {
-    "@bean-ui/docs": ["./docs/src"],
-    "@bean-ui/docs/*": ["./docs/src/*"],
-    "@bean-ui/common": ["./packages/common/src"],
-    "@bean-ui/common/*": ["./packages/common/src/*"],
-    "@bean-ui/styled-engine-em": ["./packages/styled-engine-em/src"],
-    "@bean-ui/styled-engine-em/*": ["./packages/styled-engine-em/src/*"],
-    "@bean-ui/styled-engine-sc": ["./packages/styled-engine-sc/src"],
-    "@bean-ui/styled-engine-sc/*": ["./packages/styled-engine-sc/src/*"]
-  },
-  "exclude": ["package/**/dist/**"]
+  "exclude": ["packages/**/dist/**"]
 }
