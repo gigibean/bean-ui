@@ -9,7 +9,7 @@ import Repo from './assets/repo.svg';
 import StackAlt from './assets/stackalt.svg';
 import { Loader, LoadingProps } from '@bean-ui/core';
 import { colors, textColors } from '@bean-ui/common';
-import { Button } from './Button';
+import { Button, BaseButtonProps } from '@bean-ui/core';
 
 <Meta title="Common/Introduction" />
 
@@ -224,8 +224,8 @@ We recommend building UIs with a [**component-driven**](https://componentdriven.
 <div className="subheading">Configure</div>
 
 <div className="link-list">
-  <Button label="button" primary="true" />
-  <Loader type="spin" />
+  <Button>buton</Button>
+  <Loader type="spin" size={20} />
 </div>
 
 <div className="subheading">Color Palette</div>
