@@ -56,6 +56,41 @@ type TextActionProps = {
   selected: string;
 };
 
+export const createColor = ({
+  color,
+  theme,
+  scale,
+}: Partial<Pick<ColorProps, 'color' | 'theme' | 'scale'>>): Pick<
+  ColorSetProps,
+  'main' | 'text'
+> => {
+  const colorSet = {
+    main: '',
+    text: '',
+  };
+  const text = theme === 'dark' ? darkPalette.text.primary : lightPalette.text.primary;
+  let initColor = '';
+  let initText = '';
+  if (color) {
+    if (colorPaltte.includes(color)) {
+      initColor = colors[color as ColorType][scale ?? 500];
+      initText = textColors[color as ColorType][scale ?? 500];
+    } else {
+      initColor = color;
+      initText = text;
+    }
+  }
+
+  if (theme === 'dark') {
+    colorSet.main = getLighten(initColor);
+    colorSet.text = getDarken(initText);
+  } else {
+    colorSet.main = initColor;
+    colorSet.text = initText;
+  }
+  return colorSet;
+};
+
 const createColors = ({ color, theme, scale, tonalOffset }: ColorProps): ColorSetProps => {
   const palette = theme === 'dark' ? darkPalette : lightPalette;
 
@@ -86,7 +121,7 @@ const createColors = ({ color, theme, scale, tonalOffset }: ColorProps): ColorSe
 
   if (theme === 'dark') {
     colorSet.main = getLighten(initColor);
-    colorSet.text = getLighten(initText);
+    colorSet.text = getDarken(initText);
   }
 
   colorSet.hover = getActColor({
@@ -114,6 +149,9 @@ const createColors = ({ color, theme, scale, tonalOffset }: ColorProps): ColorSe
   return colorSet;
 };
 
+const getDarken = (color: string, tonalOffset = 0.1): string => {
+  return darken(tonalOffset, color);
+};
 const getLighten = (color: string, tonalOffset = 0.1): string => {
   return lighten(tonalOffset, color);
 };

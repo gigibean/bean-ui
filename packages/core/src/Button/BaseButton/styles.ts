@@ -56,17 +56,28 @@ const containedButtonStyleByColorSet = (colorSet: ColorSetProps) => {
     background: ${colorSet.main};
     color: ${colorSet.text};
     border: none;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%),
+      0px 1px 5px 0px rgb(0 0 0 / 12%);
+    & span > svg {
+      fill: ${colorSet.text};
+    }
 
     &:hover {
       background: ${colorSet.hover};
       color: ${colorSet.hoverT};
       border: none;
+      & span > svg {
+        fill: ${colorSet.hoverT};
+      }
     }
 
     &:active {
       background: ${colorSet.active};
       color: ${colorSet.activeT};
       border: none;
+      & span > svg {
+        fill: ${colorSet.activeT};
+      }
     }
 
     &:disabled {
@@ -82,17 +93,27 @@ const textButtonStyleByColorSet = (colorSet: ColorSetProps) => {
     background: transparent;
     color: ${colorSet.main};
     border: none;
+    box-shadow: none;
+    & span > svg {
+      fill: ${colorSet.main};
+    }
 
     &:hover {
       background: ${colorSet.hoverTrans};
       color: ${colorSet.main};
       border: none;
+      & span > svg {
+        fill: ${colorSet.main};
+      }
     }
 
     &:active {
       background: ${colorSet.activeTrans};
       color: ${colorSet.main};
       border: none;
+      & span > svg {
+        fill: ${colorSet.main};
+      }
     }
 
     &:disabled {
@@ -108,17 +129,27 @@ const outlineddButtonStyleByColorSet = (colorSet: ColorSetProps) => {
     background: transparent;
     color: ${colorSet.main};
     border: 1px solid ${colorSet.hoverTrans};
+    box-shadow: none;
+    & span > svg {
+      fill: ${colorSet.main};
+    }
 
     &:hover {
       background: ${colorSet.hoverTrans};
       color: ${colorSet.main};
       border: 1px solid ${colorSet.main};
+      & span > svg {
+        fill: ${colorSet.main};
+      }
     }
 
     &:active {
       background: ${colorSet.activeTrans};
       color: ${colorSet.main};
       border: 1px solid ${colorSet.main};
+      & span > svg {
+        fill: ${colorSet.main};
+      }
     }
     &:disabled {
       background: transparent;
@@ -142,4 +173,8 @@ export const ButtonStyle = styled.button<BaseButtonStyleProps>`
   vertical-align: middle;
   text-decoration: none;
   transition: all 0.1s ease-out;
+  gap: 5px;
+  & > span {
+    display: contents;
+  }
 `;
