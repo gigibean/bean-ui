@@ -9,8 +9,8 @@ import React, {
 } from 'react';
 import { ButtonStyle } from './styles';
 import createColors from 'src/utils/getColor';
-import type { ColorType, Omit, SizeType, ThemeTypeProps, VariantType } from 'src/index';
-
+import { ColorType, Omit, SizeType, ThemeTypeProps, VariantType } from 'src/index';
+import { Loader } from 'src/Loader';
 interface CommonButtonProps {
   children?: React.ReactNode;
   /**
@@ -28,9 +28,11 @@ interface CommonButtonProps {
   size?: SizeType;
   disabled?: boolean;
   stretch?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<any>;
+  href?: string;
   isLoading?: boolean;
-  to?: any;
+  type?: 'button' | 'submit' | 'reset';
+  scale?: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   LeftIcon?: React.ReactNode;
   RightIcon?: React.ReactNode;
 }
@@ -43,28 +45,29 @@ export interface BaseButtonProps extends CommonButtonProps {
   anchorAttributes?: OmittedAnchorAttributes;
   buttonAttributes?: OmittedButtonAttributes;
 }
-
-const Button = forwardRef<any, BaseButtonProps>(
+const Button = forwardRef<HTMLButtonElement, BaseButtonProps>(
   (
     {
       children,
       theme = 'light',
       className,
-      color = 'purple',
+      color = 'deepPurple',
       variant = 'contained',
       size = 'medium',
       disabled = false,
       stretch = false,
       onClick,
+      href,
       isLoading,
-      to,
+      type,
+      scale,
       LeftIcon,
       RightIcon,
       ...rest
     },
     ref,
   ) => {
-    const [as, setAs] = useState<React.ElementType<any> | undefined>('button');
+    const [componentType, setComponentType] = useState<React.ElementType>('button');
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>): void => {
@@ -78,14 +81,14 @@ const Button = forwardRef<any, BaseButtonProps>(
 
     // create Color set
     const colorSet = useMemo(() => {
-      return createColors({ color, theme });
-    }, [color, theme]);
+      return createColors({ color, theme, scale });
+    }, [color, theme, scale]);
 
     // change tag name
     useEffect(() => {
-      if (to) setAs('a');
-      else setAs('button');
-    }, [to, setAs]);
+      if (href) setComponentType('a');
+      else setComponentType('button');
+    }, [href, setComponentType]);
 
     return (
       <ButtonStyle
@@ -93,14 +96,15 @@ const Button = forwardRef<any, BaseButtonProps>(
         size={size}
         disabled={disabled}
         stretch={stretch}
-        as={as}
+        as={componentType}
         onClick={handleClick}
         ref={ref}
         colorSet={colorSet}
         variant={variant}
-        {...rest}
+        {...{ ...rest, href }}
       >
         {children}
+        {isLoading && <Loader size={20} />}
       </ButtonStyle>
     );
   },

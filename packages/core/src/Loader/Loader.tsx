@@ -1,31 +1,33 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { createColor } from 'src/utils/getColor';
+import { ThemeTypeProps } from 'src/index';
 import { LoaderContent } from './style';
 import * as svgs from './svg';
-import { colors } from '@bean-ui/common';
 
 export type LoadingType = 'blank' | 'bubbles' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes';
 
 export interface LoadingProps {
-  type: LoadingType;
+  type?: LoadingType;
   color?: string;
-  margin?: string | number;
-  padding?: string | number;
   size?: string | number;
+  theme?: ThemeTypeProps;
+  scale?: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   delay?: number;
 }
 
 export const Loader = memo(
   ({
-    type,
-    color = colors.purple[100],
-    margin = 'auto',
-    padding = 0,
-    size = 64,
+    type = 'spin',
+    color,
+    size = 'auto',
+    theme = 'light',
+    scale,
     delay = 0,
     ...rest
   }: LoadingProps) => {
     const [delayed, setDelayed] = useState(false);
     const time = useRef(0);
+
     useEffect(() => {
       setDelayed(delay > 0);
       if (delayed) {
@@ -39,23 +41,23 @@ export const Loader = memo(
         }
       };
     }, [delay]);
+
     const selectedType = delayed ? 'blank' : type;
     const SVG = svgs[selectedType];
 
-    const outsideStyle = {
-      margin: +margin || margin,
-      padding: +padding || padding,
-    };
+    const colorSet = useMemo(() => {
+      return createColor({ color, theme, scale });
+    }, [color, theme, scale]);
 
     const style = {
-      fill: color,
-      height: +size || size,
-      width: +size || size,
+      color: colorSet.main,
+      height: +size ? `${+size}px` : size,
+      width: +size ? `${+size}px` : size,
     };
 
     return (
-      <LoaderContent style={outsideStyle} {...rest}>
-        <SVG style={style} />
+      <LoaderContent {...style} {...rest}>
+        <SVG />
       </LoaderContent>
     );
   },
