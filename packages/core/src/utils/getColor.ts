@@ -64,11 +64,12 @@ export const createColor = ({
   ColorSetProps,
   'main' | 'text'
 > => {
+  const textPalette = theme === 'dark' ? darkPalette.text : lightPalette.text;
   const colorSet = {
     main: '',
     text: '',
+    textPalette,
   };
-  const text = theme === 'dark' ? darkPalette.text.primary : lightPalette.text.primary;
   let initColor = '';
   let initText = '';
   if (color) {
@@ -77,7 +78,7 @@ export const createColor = ({
       initText = textColors[color as ColorType][scale ?? 500];
     } else {
       initColor = color;
-      initText = text;
+      initText = textPalette.primary;
     }
   }
 
