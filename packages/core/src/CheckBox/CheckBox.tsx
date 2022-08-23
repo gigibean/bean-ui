@@ -61,7 +61,7 @@ export const CheckBox = forwardRef<HTMLSpanElement, CheckBoxProps>(
       checked !== undefined ? checked : checkState,
     );
     useEffect(() => {
-      if (checked !== undefined && onChange === undefined && disabled === undefined) {
+      if (checked !== undefined && onChange === undefined && !disabled) {
         console.error(
           [
             'ex)',
@@ -106,7 +106,6 @@ export const CheckBox = forwardRef<HTMLSpanElement, CheckBoxProps>(
           checked={finalCheckState}
           disabled={disabled}
           id={id}
-          onClick={(e) => console.log(e)}
           onChange={handleChange}
           {...inputAttributes}
           {...rest}
