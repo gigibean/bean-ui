@@ -9,30 +9,16 @@ import React, {
 } from 'react';
 import { ButtonStyle } from './styles';
 import createColors from 'src/utils/getColor';
-import { ColorType, Omit, SizeType, ThemeTypeProps, VariantType } from 'src/index';
+import { CommonComponentProps, Omit } from 'src/index';
 import { Loader } from 'src/Loader';
-interface CommonButtonProps {
+interface CommonButtonProps extends CommonComponentProps {
   children?: React.ReactNode;
-  /**
-   * @example theme
-   * 'light, 'dark'
-   */
-  theme?: ThemeTypeProps;
-  className?: string;
-  /**
-   * @exmaple color
-   * 'red', 'pink', 'purple', 'deepPurple', 'indigo', 'blue', 'lightBlue', 'green', 'lightGreen', 'lime', 'yellow', 'amber', 'orange', 'deepOrange', 'brown', 'gray', rgb or hex
-   */
-  color: ColorType | string;
-  variant: VariantType;
-  size?: SizeType;
   disabled?: boolean;
   stretch?: boolean;
   onClick?: React.MouseEventHandler<any>;
   href?: string;
   isLoading?: boolean;
   type?: 'button' | 'submit' | 'reset';
-  scale?: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   LeftIcon?: React.ReactNode;
   RightIcon?: React.ReactNode;
 }
