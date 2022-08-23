@@ -232,22 +232,21 @@ We recommend building UIs with a [**component-driven**](https://componentdriven.
 
 <ul class="color-shades">
   {Object.keys(colors.red).map((colorShade) => (
-    <li>{colorShade}</li>
+    <li key={colorShade}>{colorShade}</li>
   ))}
 </ul>
 <div className="color-palette">
   <ul class="color-labels">
     {Object.keys(colors).map((colorlabels) => (
-      <li>{colorlabels}</li>
+      <li key={colorlabels}>{colorlabels}</li>
     ))}
   </ul>
   <div class="palette">
-    {Object.entries(colors).map((colorScale) => (
-      <div>
-        {console.log(colorScale)}
+    {Object.entries(colors).map((colorScale, index) => (
+      <div key={index}>
         {typeof colorScale[1] == 'object' ? (
           Object.entries(colorScale[1]).map((color) => (
-            <span style={{ background: color[1], color: textColors[colorScale[0]][color[0]] }}>
+            <span key={color[1]} style={{ background: color[1], color: textColors[colorScale[0]][color[0]] }}>
               <b>
                 {colorScale[0]}
                 {color[0]}
@@ -256,7 +255,7 @@ We recommend building UIs with a [**component-driven**](https://componentdriven.
             </span>
           ))
         ) : (
-          <span style={{ background: colorScale[1], color: textColors[colorScale[0]] }}>
+          <span key={colorScale[1]} style={{ background: colorScale[1], color: textColors[colorScale[0]] }}>
             <b>{colorScale[0]} </b>
             <i>{colorScale[1]}</i>
           </span>
