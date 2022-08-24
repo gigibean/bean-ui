@@ -62,5 +62,5 @@ export * from './Button';
 // LoadingType, LoadingProps
 export { Loader } from './Loader';
 export * from './Loader';
-export { CheckBox } from './CheckBox';
 export * from './CheckBox';
+export * from './Radio';
