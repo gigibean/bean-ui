@@ -17,15 +17,18 @@ const getSize = (size: SizeType) => {
     case 'large':
       return '1.75rem';
     default:
-      return '1.5rem;';
+      return '1rem;';
   }
 };
 
 export const RadioContent = styled.span<RadioContentProps>`
   display: inline-flex;
+  -webkit-box-align: center;
   align-items: center;
+  -webkit-box-pack: center;
   justify-content: center;
   position: relative;
+  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   background-color: transparent;
   outline: 0px;
@@ -37,6 +40,7 @@ export const RadioContent = styled.span<RadioContentProps>`
   appearance: none;
   text-decoration: none;
   padding: 9px;
+  border-radius: 50%;
   color: ${({ colorSet }) => colorSet.main};
 
   & > input {
@@ -45,10 +49,10 @@ export const RadioContent = styled.span<RadioContentProps>`
     opacity: 0;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
     z-index: 1;
   }
 
@@ -64,29 +68,18 @@ export const RadioContent = styled.span<RadioContentProps>`
 export const CheckIcon = styled.span<{ size: SizeType }>`
   position: relative;
   display: flex;
-
-  & > svg:first-child {
+  & svg {
     user-select: none;
-    width: 1em;
-    height: 1em;
     display: inline-block;
     fill: currentcolor;
     flex-shrink: 0;
-    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    width: ${({ size }) => getSize(size)};
+    height: ${({ size }) => getSize(size)};
     font-size: ${({ size }) => getSize(size)};
-    transform: scale(1);
   }
   & > svg:nth-child(2) {
-    user-select: none;
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    fill: currentcolor;
     flex-shrink: 0;
-    font-size: ${({ size }) => getSize(size)};
     left: 0px;
     position: absolute;
-    transform: scale(1);
-    transition: transform 150ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   }
 `;
