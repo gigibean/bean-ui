@@ -1,10 +1,10 @@
 import React from 'react';
-import { CheckBox, CheckBoxProps } from '@bean-ui/core';
+import { Radio, RadioProps } from '@bean-ui/core';
 // import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Core/CheckBox',
-  component: CheckBox,
+  title: 'Core/Radio',
+  component: Radio,
   argTypes: {
     theme: {
       control: 'select',
@@ -56,7 +56,7 @@ export default {
   },
 };
 
-const Template = (args: CheckBoxProps) => <CheckBox {...args} />;
+const Template = (args: RadioProps) => <Radio {...args} />;
 
 export const Default = Template.bind({});
 
