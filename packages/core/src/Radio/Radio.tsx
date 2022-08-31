@@ -34,11 +34,11 @@ interface CommonRadioProps extends Omit<CommonComponentProps, 'variant'> {
   checked?: boolean;
   disabled?: boolean;
   id?: string;
-  // name?: string;
+  name?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   defaultChecked?: boolean;
-  // value?: any;
+  value?: any;
 }
 
 type OmittedInputArrtibute = Omit<InputHTMLAttributes<HTMLInputElement>, CommonRadioProps>;
@@ -59,8 +59,10 @@ export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
       checked,
       disabled = false,
       id,
+      name,
       required,
       defaultChecked,
+      value,
       inputAttributes,
       ...rest
     },
@@ -68,13 +70,22 @@ export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
   ) => {
     const colorSet = useMemo(() => createColors({ color, theme, scale }), [color, theme, scale]);
     const [checkState, setCheckState] = useState(false);
+    const [finalCheckState, setFinalCheckState] = useState(
+      checked !== undefined ? checked : checkState,
+    );
+
     useEffect(() => {
-      setCheckState(checked !== undefined ? checked : false);
       if (defaultChecked !== undefined) setCheckState(defaultChecked);
-    }, [checked]);
+    }, [defaultChecked]);
+
+    useEffect(() => {
+      setFinalCheckState(checked !== undefined ? checked : checkState);
+    }, [checked, checkState]);
+
     const handleChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (onChange !== undefined && checked !== undefined) {
+        console.log(e.target);
+        if (onChange !== undefined) {
           onChange(e);
         } else {
           setCheckState(e.target.checked);
@@ -82,6 +93,7 @@ export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
       },
       [onChange, setCheckState],
     );
+
     return (
       <RadioContent
         className={className}
@@ -92,35 +104,46 @@ export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
         {...rest}
       >
         <input
+          type="radio"
           disabled={disabled}
           required={required}
-          checked={checkState}
+          checked={finalCheckState}
           id={id}
           onChange={handleChange}
+          name={name}
+          value={value}
           {...inputAttributes}
         />
-        <CheckIcon size={size}>{checkState ? <CheckedOn /> : <CheckedOff />}</CheckIcon>
+        <CheckIcon size={size}>
+          <CheckedOuter />
+          {finalCheckState && <CheckedOn />}
+        </CheckIcon>
       </RadioContent>
     );
   },
 );
 
-const CheckedOn = () => {
+const CheckedOuter = () => {
   return (
-    <>
-      <svg>
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-      </svg>
-      <svg>
-        <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
-      </svg>
-    </>
+    <svg
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="RadioButtonUncheckedIcon"
+    >
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+    </svg>
   );
 };
 
-const CheckedOff = () => {
+const CheckedOn = () => {
   return (
-    <svg>
+    <svg
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="RadioButtonCheckedIcon"
+    >
       <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
     </svg>
   );
