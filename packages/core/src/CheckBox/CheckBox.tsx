@@ -20,7 +20,6 @@ import createColors from 'src/utils/getColor';
 import { CheckBoxContent } from './style';
 
 export interface CommonCheckBoxProps extends Omit<CommonComponentProps, 'variant'> {
-  children?: React.ReactNode;
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
@@ -34,11 +33,24 @@ type OmittedInputArrtibute = Omit<InputHTMLAttributes<HTMLInputElement>, CommonC
 export interface CheckBoxProps extends CommonCheckBoxProps {
   inputAttributes?: OmittedInputArrtibute;
 }
-
+/**
+ * Checkbox Input Component
+ *
+ *
+ * NOTE: if checked prop isn't undefined, it can't change itself without state and onChange event:
+ *
+ * ```tsx
+ * ...
+ * const [state, setState] = useState(true)
+ * <CheckBox checked={state} onChange={(e) => setState(e.target.checked)} />
+ * ...
+ * ```
+ *
+ * Without checked and onChange props, the checked state changes automatically.
+ */
 export const CheckBox = forwardRef<HTMLSpanElement, CheckBoxProps>(
   (
     {
-      children,
       theme = 'light',
       className,
       color = 'deepPurple',
@@ -136,3 +148,11 @@ const CheckedOff = memo(() => {
     </svg>
   );
 });
+
+CheckBox.defaultProps = {
+  theme: 'light',
+  color: 'deepPurple',
+  size: 'medium',
+  scale: 500,
+  disabled: false,
+};

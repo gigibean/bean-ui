@@ -47,6 +47,40 @@ export interface RadioProps extends CommonRadioProps {
   inputAttributes?: OmittedInputArrtibute;
 }
 
+/**
+ * Radio input component
+ *
+ * ```tsx
+ * ...
+ * <Radio />
+ * ...
+ * ```
+ *
+ * With checked and onChange props:
+ *
+ * ```tsx
+ * ...
+ *   const [selectedValue, setSelectedValue] = React.useState('a');
+ *
+ *  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+ *    setSelectedValue(event.target.value);
+ *  };
+ *
+ * const controlProps = (item: string) => ({
+ *    checked: selectedValue === item,
+ *    onChange: handleChange,
+ *    value: item,
+ * });
+ *
+ *  return (
+ *    <div>
+ *      <Radio {...controlProps('a')} color="deepPurple" />
+ *      <Radio {...controlProps('b')} color="orange" />
+ *   </div>
+ * );
+ *...
+ * ```
+ */
 export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
   (
     {
@@ -147,4 +181,12 @@ const CheckedOn = () => {
       <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
     </svg>
   );
+};
+
+Radio.defaultProps = {
+  theme: 'light',
+  color: 'deepPurple',
+  size: 'medium',
+  scale: 500,
+  disabled: false,
 };

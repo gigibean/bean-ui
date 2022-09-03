@@ -31,6 +31,19 @@ export interface BaseButtonProps extends CommonButtonProps {
   anchorAttributes?: OmittedAnchorAttributes;
   buttonAttributes?: OmittedButtonAttributes;
 }
+/**
+ * Common Button Component:
+ *
+ * ```tsx
+ * <Button color="deepPurple" scale={500} size="medium" theme="light" variant="contained">
+ *  button
+ * </Button>
+ * ```
+ *
+ * NOTE: If href prop is not undefined, this button element changes to a anchor element.
+ *
+ * NOTE: While isLoading prop is true, onClick event isn't invoked.
+ */
 const Button = forwardRef<HTMLButtonElement, BaseButtonProps>(
   (
     {
@@ -97,3 +110,12 @@ const Button = forwardRef<HTMLButtonElement, BaseButtonProps>(
 );
 
 export default Button;
+
+Button.defaultProps = {
+  theme: 'light',
+  color: 'deepPurple',
+  variant: 'contained',
+  size: 'medium',
+  disabled: false,
+  stretch: false,
+};

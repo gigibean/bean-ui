@@ -1,20 +1,37 @@
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { createColor } from 'src/utils/getColor';
-import { ThemeTypeProps } from 'src/index';
+import { CommonComponentProps } from 'src/index';
 import { LoaderContent } from './style';
 import * as svgs from './svg';
 
 export type LoadingType = 'blank' | 'bubbles' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes';
 
-export interface LoadingProps {
+export interface LoadingProps extends Omit<CommonComponentProps, 'size'> {
+  /**
+   * 'blank' | 'bubbles' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes'
+   *
+   * default: 'spin'
+   */
   type?: LoadingType;
-  color?: string;
+  /**
+   * Set width and height styles
+   *
+   * ```js
+   * ... size={14} // 14px
+   * ... size={"1rem"} // 1rem
+   * ```
+   */
   size?: string | number;
-  theme?: ThemeTypeProps;
-  scale?: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   delay?: number;
 }
 
+/**
+ * Loader Component
+ *
+ * ```tsx
+ * <Loader color="deepPurple" scale={500} size="30px" theme="light" type="spin" />
+ * ```
+ */
 export const Loader = memo(
   ({
     type = 'spin',

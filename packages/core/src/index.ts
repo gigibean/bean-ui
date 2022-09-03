@@ -37,30 +37,42 @@ export type SizeType = 'small' | 'medium' | 'large';
 
 export type VariantType = 'contained' | 'text' | 'outlined';
 
-export type ThemeTypeProps = 'light' | 'dark';
+export type ThemeType = 'light' | 'dark';
+
+export type ScaleType = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
 export interface CommonComponentProps {
-  /**
-   * @example theme
-   * 'light, 'dark'
+  /** 'light' or 'dark'
+   *
+   * default: 'light'
    */
-  theme?: ThemeTypeProps;
-  /**
-   * @exmaple color
-   * 'red', 'pink', 'purple', 'deepPurple', 'indigo', 'blue', 'lightBlue', 'green', 'lightGreen', 'lime', 'yellow', 'amber', 'orange', 'deepOrange', 'brown', 'gray', rgb or hex
+  theme?: ThemeType;
+  /** 'red', 'pink', 'purple', 'deepPurple', 'indigo', 'blue', 'lightBlue', 'green', 'lightGreen', 'lime', 'yellow', 'amber', 'orange', 'deepOrange', 'brown', 'gray', rgb or hex
+   *
+   * default: 'deepPurple'
    */
   color?: ColorType | string;
   className?: string;
+  /** 'contained' | 'text' | 'outlined'
+   *
+   * default: 'contained'
+   */
   variant?: VariantType;
+  /** 'small' | 'medium' | 'large'
+   *
+   * default: 'medium'
+   */
   size?: SizeType;
-  scale?: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  /** color scale 50 to 900
+   *
+   *  50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+   *
+   * deault: 500
+   */
+  scale?: ScaleType;
 }
 
-export { Button } from './Button';
-// BaseButtonProps
 export * from './Button';
-// LoadingType, LoadingProps
-export { Loader } from './Loader';
 export * from './Loader';
 export * from './CheckBox';
 export * from './Radio';
