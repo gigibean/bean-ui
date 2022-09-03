@@ -1,12 +1,12 @@
 import { colors, textColors } from '@bean-ui/common';
 import { darken, lighten, transparentize } from 'polished';
 import { darkPalette, lightPalette } from './palette';
-import { ColorType, ThemeTypeProps } from 'src/index';
+import { ColorType, ScaleType, ThemeType } from 'src/index';
 
 interface ColorProps {
   color: string;
-  theme: ThemeTypeProps;
-  scale?: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  theme: ThemeType;
+  scale?: ScaleType;
   tonalOffset?: number;
 }
 
