@@ -1,13 +1,20 @@
 {
   "name": "@bean-ui/common",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "yarn@3.2.1",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "compile": "run-p \"compile:*\"",
-    "compile:esm": "tsc -p ."
+    "build": "run-p \"build:*\"",
+    "build:esm": "tsc -p .",
+    "prerelease": "rm -r -f ./dist; yarn build",
+    "release": "npm publish"
   },
-  "dependencies": {
+  "devDependencies": {
     "yarn-run-all": "^3.1.1"
-  }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false
 }
