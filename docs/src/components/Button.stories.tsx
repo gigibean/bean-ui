@@ -1,52 +1,27 @@
 import React from 'react';
 import { Button, BaseButtonProps } from '@bean-ui/core';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { theme, size, variant, color, scale, children, disabled } from 'src/argTypes';
+import { href, isLoading, stretch } from 'src/argTypes/button';
+
 export default {
   title: 'Core/Button',
   component: Button,
   argTypes: {
-    theme: {
-      control: 'select',
-      options: ['light', 'dark'],
-    },
-    size: { control: 'select', options: ['small', 'medium', 'large'] },
-    stretch: { control: 'select', options: [true, false] },
-    variant: { control: 'select', options: ['contained', 'text', 'outlined'] },
-    color: {
-      control: 'select',
-      options: [
-        'red',
-        'pink',
-        'purple',
-        'deepPurple',
-        'indigo',
-        'blue',
-        'lightBlue',
-        'green',
-        'lightGreen',
-        'lime',
-        'yellow',
-        'amber',
-        'orange',
-        'deepOrange',
-        'brown',
-        'gray',
-        '#FFB3B3',
-        'rgb(63, 167, 150)',
-      ],
-    },
-    scale: {
-      control: 'select',
-      options: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900],
-    },
-    // loadingSize: { control: 'text' },
-    children: { control: 'text' },
-    isLoading: { control: 'select', options: [true, false] },
-    disabled: { control: 'select', options: [true, false] },
-    href: { control: 'text' },
+    theme: theme,
+    size: size,
+    stretch: stretch,
+    variant: variant,
+    color: color,
+    scale: scale,
+    children: children,
+    isLoading: isLoading,
+    disabled: disabled,
+    href: href,
   },
-};
+} as ComponentMeta<typeof Button>;
 
-const Template = (args: BaseButtonProps) => {
+const Template: ComponentStory<typeof Button> = (args: BaseButtonProps) => {
   return <Button {...args} />;
 };
 

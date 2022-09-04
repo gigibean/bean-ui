@@ -3,7 +3,11 @@
   "compilerOptions": {
     "target": "esnext",
     "jsx": "react-jsx",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "paths": {
+      "src/*": ["src/*"]
+    }
   },
   "include": ["src/**/*", ".storybook/*"]
 }
