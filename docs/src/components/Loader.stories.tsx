@@ -1,53 +1,31 @@
 import React from 'react';
 import { Loader, LoadingProps } from '@bean-ui/core';
-// import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { color, scale, theme } from 'src/argTypes';
+import { type } from 'src/argTypes/loader';
 
 export default {
   title: 'Core/Loader',
   component: Loader,
   argTypes: {
-    theme: {
-      control: 'select',
-      options: ['light', 'dark'],
-    },
-    type: {
-      control: 'select',
-      options: ['blank', 'bubbles', 'cylon', 'spin', 'spinningBubbles', 'spokes'],
-    },
-    color: {
-      control: 'select',
-      options: [
-        'red',
-        'pink',
-        'purple',
-        'deepPurple',
-        'indigo',
-        'blue',
-        'lightBlue',
-        'green',
-        'lightGreen',
-        'lime',
-        'yellow',
-        'amber',
-        'orange',
-        'deepOrange',
-        'brown',
-        'gray',
-        '#FFB3B3',
-        'rgb(63, 167, 150)',
-      ],
-    },
-    scale: {
-      control: 'select',
-      options: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900],
-    },
+    theme,
+    type,
+    color,
+    scale,
     size: {
+      description: 'The scale of the component. It supports number and string',
+      table: {
+        type: {
+          summary: 'number | string',
+          detail: 'number: ${number}px | string: ${string}',
+        },
+      },
       control: 'text',
     },
   },
-};
+} as ComponentMeta<typeof Loader>;
 
-const Template = (args: LoadingProps) => <Loader {...args} />;
+const Template: ComponentStory<typeof Loader> = (args: LoadingProps) => <Loader {...args} />;
 
 export const Default = Template.bind({});
 
