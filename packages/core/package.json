@@ -11,8 +11,8 @@
   "scripts": {
     "prebuild": "rm -r -f ./dist; tsc -p .",
     "build": "rollup -c",
-    "prerelease": "rm -r -f ./dist; yarn build",
-    "release": "npm publish"
+    "prepack": "rm -r -f ./dist; yarn build",
+    "publish": "npm publish"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
