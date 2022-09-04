@@ -11,8 +11,8 @@
   "scripts": {
     "build": "run-p \"build:*\"",
     "build:esm": "tsc -p .",
-    "prerelease": "rm -r -f ./dist; yarn build",
-    "release": "npm publish"
+    "prepack": "rm -r -f ./dist; yarn build",
+    "publish": "npm publish"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -29,10 +29,10 @@
     "react": "^17.0.0 || ^18.0.0"
   },
   "peerDependenciesMeta": {
-    "@emotion/react": {
+    "@emotion/cache": {
       "optional": true
     },
-    "@emotion/styled": {
+    "react": {
       "optional": true
     }
   },
