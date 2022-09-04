@@ -7,6 +7,9 @@
       "path": "./packages/core"
     },
     {
+      "path": "./packages/styled-engine"
+    },
+    {
       "path": "./docs"
     }
   ],
