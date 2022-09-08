@@ -1,15 +1,19 @@
 {
   "name": "@bean-ui/monorepo",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "workspaces": [
-    "packages/*",
+    "packages/common",
+    "packages/core",
+    "packages/styled-engine",
     "docs"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --fix --cache",
-    "prebuild:all": "yarn workspaces foreach -p run prebuild",
+    "build:all": "yarn workspaces foreach -p run build",
     "dev:all": "yarn workspaces foreach -p run dev",
-    "preview:all": "yarn workspaces foreach -p run preview"
+    "preview:all": "yarn workspaces foreach -p run preview",
+    "prepack:all": "yarn workspaces foreach -p run prepack",
+    "publish:all": "yarn workspaces foreach -p run publish"
   },
   "packageManager": "yarn@3.2.1",
   "devDependencies": {
