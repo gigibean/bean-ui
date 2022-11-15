@@ -76,3 +76,4 @@ export * from './Button';
 export * from './Loader';
 export * from './CheckBox';
 export * from './Radio';
+export * from './Form';
