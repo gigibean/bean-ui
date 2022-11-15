@@ -30,3 +30,22 @@ export const required = {
   control: 'select',
   options: [true, false],
 };
+
+export const label = {
+  description: 'A text to be used label element.',
+  table: {
+    type: {
+      summary: 'string',
+    },
+  },
+  control: 'text',
+};
+
+export const control = {
+  description: 'A control element. For instance, it can be a Radio or a Checkbox.',
+  table: {
+    type: {
+      summary: 'element',
+    },
+  },
+};
