@@ -57,7 +57,7 @@ const Button = forwardRef<HTMLButtonElement, BaseButtonProps>(
       stretch = false,
       onClick,
       href,
-      isLoading,
+      isLoading = false,
       type,
       scale,
       LeftIcon,
@@ -116,6 +116,8 @@ Button.defaultProps = {
   color: 'deepPurple',
   variant: 'contained',
   size: 'medium',
+  scale: 500,
   disabled: false,
   stretch: false,
+  isLoading: false,
 };
