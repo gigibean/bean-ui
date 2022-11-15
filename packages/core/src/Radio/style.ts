@@ -61,7 +61,7 @@ export const RadioContent = styled.span<RadioContentProps>`
     `
         color: ${colorSet.textPalette.disabled};
         pointer-events: none;
-        cursor: default;
+        cursor: not-allowed;
     `}
 `;
 

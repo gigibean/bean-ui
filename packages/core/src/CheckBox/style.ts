@@ -31,7 +31,7 @@ export const CheckBoxContent = styled.span<CheckBoxContentProps>`
   outline: 0;
   border: 9px;
   margin: 0;
-  padding: 0;
+  padding: 9px;
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
@@ -68,6 +68,6 @@ export const CheckBoxContent = styled.span<CheckBoxContentProps>`
     `
         color: ${colorSet.textPalette.disabled};
         pointer-events: none;
-        cursor: default;
+        cursor: not-allowed;
     `}
 `;
