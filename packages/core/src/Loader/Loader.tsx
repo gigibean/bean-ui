@@ -4,6 +4,10 @@ import { CommonComponentProps } from 'src/index';
 import { LoaderContent } from './style';
 import * as svgs from './svg';
 
+type Svg = {
+  [key: string]: string;
+};
+
 export type LoadingType = 'blank' | 'bubbles' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes';
 
 export interface LoadingProps extends Omit<CommonComponentProps, 'size'> {
@@ -57,10 +61,10 @@ export const Loader = memo(
           clearTimeout(time.current);
         }
       };
-    }, [delay]);
+    }, [delay, delayed]);
 
     const selectedType = delayed ? 'blank' : type;
-    const SVG = svgs[selectedType];
+    const SVG = (svgs as Svg)[selectedType];
 
     const colorSet = useMemo(() => {
       return createColor({ color, theme, scale });

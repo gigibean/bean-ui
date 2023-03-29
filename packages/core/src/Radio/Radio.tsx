@@ -1,26 +1,7 @@
-/**
- * checked	bool	false	
-checkedIcon	node	<RadioButtonIcon checked />	
-classes	object		
-color		
-disabled	bool	false	
-icon	node	<RadioButtonIcon />	
-id	string		
-inputProps	object		
-inputRef	ref		
-name	string		
-onChange	func		
-required	bool	false	
-size	'medium'
-| 'small'
-| string	'medium'	
-value	any		
-The value of the component. The DOM API casts this to a string.
- */
-
 import React, {
   forwardRef,
   InputHTMLAttributes,
+  memo,
   useCallback,
   useEffect,
   useMemo,
@@ -46,6 +27,32 @@ type OmittedInputArrtibute = Omit<InputHTMLAttributes<HTMLInputElement>, CommonR
 export interface RadioProps extends CommonRadioProps {
   inputAttributes?: OmittedInputArrtibute;
 }
+
+const CheckedOuter = memo(() => {
+  return (
+    <svg
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="RadioButtonUncheckedIcon"
+    >
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+    </svg>
+  );
+});
+
+const CheckedOn = memo(() => {
+  return (
+    <svg
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="RadioButtonCheckedIcon"
+    >
+      <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
+    </svg>
+  );
+});
 
 /**
  * Radio input component
@@ -109,7 +116,9 @@ export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
     );
 
     useEffect(() => {
-      if (defaultChecked !== undefined) setCheckState(defaultChecked);
+      if (defaultChecked !== undefined) {
+        setCheckState(defaultChecked);
+      }
     }, [defaultChecked]);
 
     useEffect(() => {
@@ -118,7 +127,6 @@ export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
 
     const handleChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target);
         if (onChange !== undefined) {
           onChange(e);
         } else {
@@ -156,37 +164,3 @@ export const Radio = forwardRef<HTMLSpanElement, RadioProps>(
     );
   },
 );
-
-const CheckedOuter = () => {
-  return (
-    <svg
-      focusable="false"
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      data-testid="RadioButtonUncheckedIcon"
-    >
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-    </svg>
-  );
-};
-
-const CheckedOn = () => {
-  return (
-    <svg
-      focusable="false"
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      data-testid="RadioButtonCheckedIcon"
-    >
-      <path d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"></path>
-    </svg>
-  );
-};
-
-Radio.defaultProps = {
-  theme: 'light',
-  color: 'deepPurple',
-  size: 'medium',
-  scale: 500,
-  disabled: false,
-};

@@ -1,5 +1,4 @@
 const cosmiconfig = require('cosmiconfig');
-// import cosmiconfig from 'cosmiconfig';
 export function getConfig(configPath, searchPath = process.cwd()) {
   const useCustomPath = !!configPath;
   const explorer = cosmiconfig('bean-ui', { sync: true });
@@ -15,9 +14,9 @@ export function getConfig(configPath, searchPath = process.cwd()) {
     // instead use default config
     const config = result ? result.config : {};
     const filepath = result ? result.filepath : {};
-    if (!result) Logger.log('No config file detected, using defaults.');
-
-    console.log(config, filepath);
+    if (!result) {
+      Logger.log('No config file detected, using defaults.');
+    }
 
     return { ...config, filepath };
   } catch (error) {

@@ -33,6 +33,28 @@ type OmittedInputArrtibute = Omit<InputHTMLAttributes<HTMLInputElement>, CommonC
 export interface CheckBoxProps extends CommonCheckBoxProps {
   inputAttributes?: OmittedInputArrtibute;
 }
+
+const CheckedOn = memo(() => {
+  return (
+    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CheckBoxIcon">
+      <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+    </svg>
+  );
+});
+
+const CheckedOff = memo(() => {
+  return (
+    <svg
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="CheckBoxOutlineBlankIcon"
+    >
+      <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
+    </svg>
+  );
+});
+
 /**
  * Checkbox Input Component
  *
@@ -84,10 +106,12 @@ export const CheckBox = forwardRef<HTMLSpanElement, CheckBoxProps>(
           ].join('\n'),
         );
       }
-    }, [checked, onChange]);
+    }, [checked, disabled, onChange]);
 
     useEffect(() => {
-      if (defaultChecked !== undefined) setCheckState(defaultChecked);
+      if (defaultChecked !== undefined) {
+        setCheckState(defaultChecked);
+      }
     }, [defaultChecked]);
 
     useEffect(() => {
@@ -119,6 +143,7 @@ export const CheckBox = forwardRef<HTMLSpanElement, CheckBoxProps>(
           disabled={disabled}
           id={id}
           onChange={handleChange}
+          required={required}
           {...inputAttributes}
           {...rest}
         />
@@ -127,32 +152,3 @@ export const CheckBox = forwardRef<HTMLSpanElement, CheckBoxProps>(
     );
   },
 );
-
-const CheckedOn = memo(() => {
-  return (
-    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CheckBoxIcon">
-      <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-    </svg>
-  );
-});
-
-const CheckedOff = memo(() => {
-  return (
-    <svg
-      focusable="false"
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      data-testid="CheckBoxOutlineBlankIcon"
-    >
-      <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
-    </svg>
-  );
-});
-
-CheckBox.defaultProps = {
-  theme: 'light',
-  color: 'deepPurple',
-  size: 'medium',
-  scale: 500,
-  disabled: false,
-};
