@@ -73,7 +73,9 @@ const Button = forwardRef<HTMLButtonElement, BaseButtonProps>(
         if (isLoading) {
           return;
         }
-        onClick && onClick(e);
+        if (onClick) {
+          onClick(e);
+        }
       },
       [isLoading, onClick],
     );
@@ -85,8 +87,11 @@ const Button = forwardRef<HTMLButtonElement, BaseButtonProps>(
 
     // change tag name
     useEffect(() => {
-      if (href) setComponentType('a');
-      else setComponentType('button');
+      if (href) {
+        setComponentType('a');
+      } else {
+        setComponentType('button');
+      }
     }, [href, setComponentType]);
 
     return (
@@ -110,14 +115,3 @@ const Button = forwardRef<HTMLButtonElement, BaseButtonProps>(
 );
 
 export default Button;
-
-Button.defaultProps = {
-  theme: 'light',
-  color: 'deepPurple',
-  variant: 'contained',
-  size: 'medium',
-  scale: 500,
-  disabled: false,
-  stretch: false,
-  isLoading: false,
-};

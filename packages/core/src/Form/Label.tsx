@@ -52,9 +52,3 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
     );
   },
 );
-
-Label.defaultProps = {
-  theme: 'light',
-  size: 'medium',
-  disabled: false,
-};

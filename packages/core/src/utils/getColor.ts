@@ -32,7 +32,7 @@ export const colorPaltte = [
 export type ColorSetProps = {
   main: string;
   text: string;
-  textPalette: textPaletteProps;
+  textPalette: TextPaletteProps;
   textAction: TextActionProps;
   paper: string;
   divider: string;
@@ -44,7 +44,7 @@ export type ColorSetProps = {
   activeTrans: string;
 };
 
-type textPaletteProps = {
+type TextPaletteProps = {
   primary: string;
   secondary: string;
   disabled: string;
@@ -54,6 +54,25 @@ type TextActionProps = {
   active: string;
   hover: string;
   selected: string;
+};
+
+const getDarken = (color: string, tonalOffset = 0.1): string => {
+  return darken(tonalOffset, color);
+};
+const getLighten = (color: string, tonalOffset = 0.1): string => {
+  return lighten(tonalOffset, color);
+};
+const getOpacify = (color: string, tonalOffset = 0.1): string => {
+  return transparentize(tonalOffset, color);
+};
+const getActColor = ({ color, theme, tonalOffset = 0.1 }: ColorProps) => {
+  const tonalOffsetLight = tonalOffset;
+  const tonalOffsetDark = tonalOffset * 1.5;
+  if (theme === 'light') {
+    return darken(tonalOffsetLight, color);
+  }
+
+  return darken(tonalOffsetDark, color);
 };
 
 export const createColor = ({
@@ -149,24 +168,4 @@ const createColors = ({ color, theme, scale, tonalOffset }: ColorProps): ColorSe
   colorSet.activeTrans = getOpacify(initColor, 0.4);
   return colorSet;
 };
-
-const getDarken = (color: string, tonalOffset = 0.1): string => {
-  return darken(tonalOffset, color);
-};
-const getLighten = (color: string, tonalOffset = 0.1): string => {
-  return lighten(tonalOffset, color);
-};
-const getOpacify = (color: string, tonalOffset = 0.1): string => {
-  return transparentize(tonalOffset, color);
-};
-const getActColor = ({ color, theme, tonalOffset = 0.1 }: ColorProps) => {
-  const tonalOffsetLight = tonalOffset;
-  const tonalOffsetDark = tonalOffset * 1.5;
-  if (theme === 'light') {
-    return darken(tonalOffsetLight, color);
-  }
-
-  return darken(tonalOffsetDark, color);
-};
-
 export default createColors;

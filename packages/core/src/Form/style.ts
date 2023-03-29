@@ -6,12 +6,13 @@ type LabelWrapperProps = Pick<LabelProps, 'theme' | 'size' | 'disabled'>;
 
 const getTxtColor = (theme = 'light', disabled = false) => {
   const palette = theme === 'light' ? lightPalette : darkPalette;
-  if (disabled)
+  if (disabled) {
     return `
     color: ${palette.text.disabled};
     cursor: not-allowed;
     pointer-events: none;
     `;
+  }
   return `
     color: ${palette.text.primary};
     &:hover {

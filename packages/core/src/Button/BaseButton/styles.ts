@@ -1,5 +1,5 @@
 import styled, { css } from '@bean-ui/styled-engine';
-import { darken, lighten } from 'polished';
+import { lighten } from 'polished';
 import { ColorSetProps } from 'src/utils/getColor';
 import type { SizeType, VariantType } from 'src/index';
 
@@ -37,17 +37,6 @@ const buttonStyleBySize = (key: SizeType) => {
         padding: 0 20px;
         height: 48px;
       `;
-  }
-};
-
-const buttonStyleByVriant = (variant: VariantType, colorSet: ColorSetProps) => {
-  switch (variant) {
-    case 'contained':
-      return containedButtonStyleByColorSet(colorSet);
-    case 'text':
-      return textButtonStyleByColorSet(colorSet);
-    case 'outlined':
-      return outlineddButtonStyleByColorSet(colorSet);
   }
 };
 
@@ -157,6 +146,17 @@ const outlineddButtonStyleByColorSet = (colorSet: ColorSetProps) => {
       color: ${colorSet.textPalette.disabled};
     }
   `;
+};
+
+const buttonStyleByVriant = (variant: VariantType, colorSet: ColorSetProps) => {
+  switch (variant) {
+    case 'contained':
+      return containedButtonStyleByColorSet(colorSet);
+    case 'text':
+      return textButtonStyleByColorSet(colorSet);
+    case 'outlined':
+      return outlineddButtonStyleByColorSet(colorSet);
+  }
 };
 
 export const ButtonStyle = styled.button<BaseButtonStyleProps>`
